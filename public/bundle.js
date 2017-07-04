@@ -70,6 +70,8 @@
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _redux = __webpack_require__(8);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -84,6 +86,26 @@ var reducer = function reducer() {
       // let books = state.books.concat(action.payload);  // change to the spread operator
       // return {books};
       return { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)) }; // the spread operator creates a new array books and concats books and payload
+      break;
+    case "DELETE_BOOK":
+      var currentBooksToDelete = [].concat(_toConsumableArray(state.books)); // make a copy of the current list
+      // Determine which book to delete
+      var indexToDelete = currentBooksToDelete.findIndex(function (book) {
+        return book.id === action.payload.id;
+      });
+      // use Slice to remove the book at the specified index
+      return { books: [].concat(_toConsumableArray(currentBooksToDelete.slice(0, indexToDelete)), _toConsumableArray(currentBooksToDelete.slice(indexToDelete + 1))) };
+      break;
+    case "UPDATE_BOOK":
+      var currentBookToUpdate = [].concat(_toConsumableArray(state.books));
+      var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
+        return book.id === action.payload.id;
+      });
+      var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
+        title: action.payload.title
+      });
+      console.log("what is in newBookToUpdate? ", newBookToUpdate);
+      return { books: [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1))) };
       break;
   }
   return state;
@@ -113,14 +135,19 @@ store.dispatch({
 });
 
 // Dispatch a second action
+// Delete
 store.dispatch({
-  type: "POST_BOOK",
-  payload: [{
-    id: 3,
-    title: "book title 3",
-    description: "this is a third book",
-    price: 44.99
-  }]
+  type: "DELETE_BOOK",
+  payload: { id: 1 }
+});
+
+// Update
+store.dispatch({
+  type: "UPDATE_BOOK",
+  payload: {
+    id: 2,
+    title: 'transformers the movie'
+  }
 });
 
 /***/ }),
