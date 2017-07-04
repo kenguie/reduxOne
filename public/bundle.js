@@ -72,14 +72,18 @@
 
 var _redux = __webpack_require__(8);
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 // Step 3 define reducers
 var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { books: [] };
   var action = arguments[1];
 
   switch (action.type) {
     case "POST_BOOK":
-      return state = action.payload;
+      // let books = state.books.concat(action.payload);  // change to the spread operator
+      // return {books};
+      return { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)) }; // the spread operator creates a new array books and concats books and payload
       break;
   }
   return state;
@@ -90,18 +94,33 @@ var store = (0, _redux.createStore)(reducer);
 
 store.subscribe(function () {
   console.log('current state is: ', store.getState());
-  console.log('current price is: ', store.getState().price);
 });
 
 // Step 2 create and dispatch actions
 store.dispatch({
   type: "POST_BOOK",
-  payload: {
+  payload: [{
     id: 1,
     title: "book title",
     description: "this is a book",
     price: 33.99
-  }
+  }, {
+    id: 2,
+    title: "book title 2",
+    description: "this is a second book",
+    price: 59.99
+  }]
+});
+
+// Dispatch a second action
+store.dispatch({
+  type: "POST_BOOK",
+  payload: [{
+    id: 3,
+    title: "book title 3",
+    description: "this is a third book",
+    price: 44.99
+  }]
 });
 
 /***/ }),
