@@ -4,6 +4,10 @@ import {createStore} from 'redux';
 // Import combined reducers
 import reducers from './reducers/index';
 
+//Import Actions
+import {addToCart} from './actions/cartActions';
+import {postBooks, deleteBooks, updateBooks} from './actions/booksActions';
+
 // Step 1 create the store
 const store = createStore(reducers);
 
@@ -12,9 +16,8 @@ store.subscribe(() => {
 });
 
 // Step 2 create and dispatch actions
-store.dispatch({
-  type:"POST_BOOK", 
-  payload: [{
+store.dispatch(postBooks(
+  [{
     id: 1,
     title: "book title",
     description: "this is a book",
@@ -25,20 +28,24 @@ store.dispatch({
     description: "this is a second book",
     price: 59.99
   }]
-});
+));
 
 // Dispatch a second action
 // Delete
-store.dispatch({
-  type:"DELETE_BOOK", 
-  payload: { id: 1 }
-});
+store.dispatch (deleteBooks(
+  { id: 1 }
+));
 
 // Update
-store.dispatch({
-  type:"UPDATE_BOOK",
-  payload:{
+store.dispatch (updateBooks(
+  {
     id: 2,
     title: 'transformers the movie'
   }
-});
+));
+
+// ------> Cart Actions
+// Add to Cart 
+store.dispatch(addToCart(
+  [{id: 1}]
+));
