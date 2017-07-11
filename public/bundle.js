@@ -11310,17 +11310,23 @@ store.dispatch((0, _booksActions.postBooks)([{
 
 // Dispatch a second action
 // Delete
-store.dispatch((0, _booksActions.deleteBooks)({ id: 1 }));
+// store.dispatch (deleteBooks(
+//   { id: 1 }
+// ));
 
 // Update
-store.dispatch((0, _booksActions.updateBooks)({
-  id: 2,
-  title: 'transformers the movie'
-}));
+// store.dispatch (updateBooks(
+//   {
+//     id: 2,
+//     title: 'transformers the movie'
+//   }
+// ));
 
 // ------> Cart Actions
 // Add to Cart 
-store.dispatch((0, _cartActions.addToCart)([{ id: 1 }]));
+// store.dispatch(addToCart(
+//   [{id: 1}]
+// ));
 
 /***/ }),
 /* 98 */

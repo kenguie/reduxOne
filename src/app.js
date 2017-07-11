@@ -47,20 +47,20 @@ store.dispatch(postBooks(
 
 // Dispatch a second action
 // Delete
-store.dispatch (deleteBooks(
-  { id: 1 }
-));
+// store.dispatch (deleteBooks(
+//   { id: 1 }
+// ));
 
 // Update
-store.dispatch (updateBooks(
-  {
-    id: 2,
-    title: 'transformers the movie'
-  }
-));
+// store.dispatch (updateBooks(
+//   {
+//     id: 2,
+//     title: 'transformers the movie'
+//   }
+// ));
 
 // ------> Cart Actions
 // Add to Cart 
-store.dispatch(addToCart(
-  [{id: 1}]
-));
+// store.dispatch(addToCart(
+//   [{id: 1}]
+// ));
