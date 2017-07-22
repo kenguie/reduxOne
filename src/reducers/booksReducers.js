@@ -1,8 +1,23 @@
 "use strict"
 
 // Books Reducers
-export function booksReducers(state = {books: []}, action) {
+export function booksReducers(state = { // initial state
+  books: [{
+    id: 1,
+    title: "book title",
+    description: "this is a book",
+    price: 53.99
+  },{
+    id: 2,
+    title: "book title 2",
+    description: "this is a second book",
+    price: 79.99
+  }]
+}, action) {
   switch(action.type) {
+    case "GET_BOOKS":
+      return {...state, books:[...state.books]}; 
+      break;
     case "POST_BOOK":
       // let books = state.books.concat(action.payload);  // change to the spread operator
       // return {books};

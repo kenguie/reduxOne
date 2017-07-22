@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getBooks } from '../../actions/booksActions';
 
 class Booklist extends Component {
+  componentDidMount() {
+    // Dispatch an action
+    this.props.getBooks();
+  }
   render() {
     // console.log('state ', this.props.books);
     const booksList = this.props.books.map(function(booksArr){
@@ -22,10 +28,16 @@ class Booklist extends Component {
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return{
     books: state.books.books
   }
 }
 
-export default connect(mapStateToProps)(Booklist);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getBooks: getBooks
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Booklist);

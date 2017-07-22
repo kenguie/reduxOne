@@ -31,19 +31,9 @@ render(
 );
 
 // Step 2 create and dispatch actions
-store.dispatch(postBooks(
-  [{
-    id: 1,
-    title: "book title",
-    description: "this is a book",
-    price: 33.99
-  },{
-    id: 2,
-    title: "book title 2",
-    description: "this is a second book",
-    price: 59.99
-  }]
-));
+// store.dispatch(postBooks(
+  
+// ));
 
 // Dispatch a second action
 // Delete
