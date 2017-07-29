@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import { Well, Panel, FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { findDOMNode } from 'react-dom';
+import { postBooks } from '../../actions/booksActions';
 
 class BooksForm extends Component {
+
+  handleSubmit() {
+    const book = [{
+      title: findDOMNode(this.refs.title).value,
+      description: findDOMNode(this.refs.description).value,
+      price: findDOMNode(this.refs.price).value,
+    }]
+    this.props.postBooks(book);
+  }
+
   render() {
     return (
       <Well>
@@ -18,20 +32,23 @@ class BooksForm extends Component {
             <FormControl 
               type= "text"
               placeholder = "Enter Description"
-              ref = "Description" />
+              ref = "description" />
           </FormGroup>
           <FormGroup controlId="Price">
             <ControlLabel>Price</ControlLabel>
             <FormControl 
               type= "text"
               placeholder = "Enter Price"
-              ref = "Price" />
+              ref = "price" />
           </FormGroup>
-          <Button bsStyle="primary">Save book</Button>
+          <Button onClick={this.handleSubmit.bind(this)} bsStyle="primary">Save book</Button>
         </Panel>
       </Well>
     )
   }
 }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( {postBooks}, dispatch)
+}
 
-export default BooksForm;
+export default connect(null, mapDispatchToProps)(BooksForm);
