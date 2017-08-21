@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 // React Router
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
@@ -33,7 +33,7 @@ import Main from './main';
 
 const Routes = (
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={Main}>
         <IndexRoute component={BooksList} />
         <Route path="/admin" component={BooksForm} />
