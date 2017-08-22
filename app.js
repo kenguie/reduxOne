@@ -25,6 +25,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', index);
 // app.use('/users', users);
 
+// APIs
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/bookshop');
+
+var Books = require('./models/books.js');
+
+//-------------- Post Books
+app.post('/books', function(req, res) {
+  var book = req.body;
+
+  Books.create(book, function(err, books) {
+    if (err) {
+      throw err;
+    }
+    res.json(books);
+  })
+});
+
+// END APIs
+
 app.get('*', function (req, res) {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 });
