@@ -2,21 +2,11 @@
 
 // Books Reducers
 export function booksReducers(state = { // initial state
-  books: [{
-    _id: 1,
-    title: "book title",
-    description: "this is a book",
-    price: 53.99
-  },{
-    _id: 2,
-    title: "book title 2",
-    description: "this is a second book",
-    price: 79.99
-  }]
+  books: []
 }, action) {
   switch(action.type) {
     case "GET_BOOKS":
-      return {...state, books:[...state.books]}; 
+      return {...state, books:[...action.payload]}; 
       break;
     case "POST_BOOK":
       // let books = state.books.concat(action.payload);  // change to the spread operator

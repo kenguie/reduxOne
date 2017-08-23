@@ -10779,8 +10779,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Get Books
 function getBooks() {
-  return {
-    type: "GET_BOOKS"
+  return function (dispatch) {
+    _axios2.default.get("/books").then(function (response) {
+      dispatch({ type: "GET_BOOKS", payload: response.data });
+    }).catch(function (err) {
+      dispatch({ type: "GET_BOOKS_REJECTED", payload: err });
+    });
   };
 }
 
@@ -10801,9 +10805,12 @@ function postBooks(book) {
 
 // Delete a Book
 function deleteBooks(id) {
-  return {
-    type: "DELETE_BOOK",
-    payload: id
+  return function (dispatch) {
+    _axios2.default.delete("/books/" + id).then(function (response) {
+      dispatch({ type: "DELETE_BOOK", payload: id });
+    }).catch(function (err) {
+      dispatch({ type: "DELETE_BOOK_REJECTED", payload: err });
+    });
   };
 }
 
@@ -37683,23 +37690,13 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function booksReducers() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { // initial state
-    books: [{
-      _id: 1,
-      title: "book title",
-      description: "this is a book",
-      price: 53.99
-    }, {
-      _id: 2,
-      title: "book title 2",
-      description: "this is a second book",
-      price: 79.99
-    }]
+    books: []
   };
   var action = arguments[1];
 
   switch (action.type) {
     case "GET_BOOKS":
-      return _extends({}, state, { books: [].concat(_toConsumableArray(state.books)) });
+      return _extends({}, state, { books: [].concat(_toConsumableArray(action.payload)) });
       break;
     case "POST_BOOK":
       // let books = state.books.concat(action.payload);  // change to the spread operator
