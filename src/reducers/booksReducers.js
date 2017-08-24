@@ -11,7 +11,14 @@ export function booksReducers(state = { // initial state
     case "POST_BOOK":
       // let books = state.books.concat(action.payload);  // change to the spread operator
       // return {books};
-      return {books:[...state.books, ...action.payload]}; // the spread operator creates a new array books and concats books and payload
+      return {...state, books:[...state.books, ...action.payload], msg:'Saved! Click to continue', style:'success'}; 
+      // the spread operator creates a new array books and concats books and payload
+      break;
+    case "POST_BOOK_REJECTED":
+      return { ...state, msg:'Please, try again', style:'danger' }; 
+      break;
+    case "RESET_BUTTON":
+      return { ...state, msg:null, style: 'primary' };
       break;
     case "DELETE_BOOK":
       const currentBooksToDelete = [...state.books] // make a copy of the current list

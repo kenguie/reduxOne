@@ -21,6 +21,7 @@ class Booklist extends Component {
             _id={booksArr._id} 
             title={booksArr.title} 
             description={booksArr.description} 
+            images={booksArr.images}
             price={booksArr.price} />
         </Col>
       )
@@ -31,9 +32,6 @@ class Booklist extends Component {
           <Cart />
         </Row>
         <Row>
-          <Col xs={12} sm={6}>
-            <BookForm />
-          </Col>
           {booksList}
         </Row>
       </Grid>
