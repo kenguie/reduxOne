@@ -22393,7 +22393,7 @@ var BooksForm = function (_Component) {
               null,
               _react2.default.createElement(
                 _reactBootstrap.FormGroup,
-                { controlId: 'title' },
+                { controlId: 'title', validationState: this.props.validation },
                 _react2.default.createElement(
                   _reactBootstrap.ControlLabel,
                   null,
@@ -22402,11 +22402,12 @@ var BooksForm = function (_Component) {
                 _react2.default.createElement(_reactBootstrap.FormControl, {
                   type: 'text',
                   placeholder: 'Enter Title',
-                  ref: 'title' })
+                  ref: 'title' }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               ),
               _react2.default.createElement(
                 _reactBootstrap.FormGroup,
-                { controlId: 'Description' },
+                { controlId: 'Description', validationState: this.props.validation },
                 _react2.default.createElement(
                   _reactBootstrap.ControlLabel,
                   null,
@@ -22415,11 +22416,12 @@ var BooksForm = function (_Component) {
                 _react2.default.createElement(_reactBootstrap.FormControl, {
                   type: 'text',
                   placeholder: 'Enter Description',
-                  ref: 'description' })
+                  ref: 'description' }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               ),
               _react2.default.createElement(
                 _reactBootstrap.FormGroup,
-                { controlId: 'Price' },
+                { controlId: 'Price', validationState: this.props.validation },
                 _react2.default.createElement(
                   _reactBootstrap.ControlLabel,
                   null,
@@ -22428,7 +22430,8 @@ var BooksForm = function (_Component) {
                 _react2.default.createElement(_reactBootstrap.FormControl, {
                   type: 'text',
                   placeholder: 'Enter Price',
-                  ref: 'price' })
+                  ref: 'price' }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               ),
               _react2.default.createElement(
                 _reactBootstrap.Button,
@@ -22479,7 +22482,8 @@ function mapStateToProps(state) {
   return {
     books: state.books.books,
     msg: state.books.msg,
-    style: state.books.style
+    style: state.books.style,
+    validation: state.books.validation
   };
 }
 
@@ -38557,14 +38561,14 @@ function booksReducers() {
     case "POST_BOOK":
       // let books = state.books.concat(action.payload);  // change to the spread operator
       // return {books};
-      return _extends({}, state, { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)), msg: 'Saved! Click to continue', style: 'success' });
+      return _extends({}, state, { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)), msg: 'Saved! Click to continue', style: 'success', validation: 'success' });
       // the spread operator creates a new array books and concats books and payload
       break;
     case "POST_BOOK_REJECTED":
-      return _extends({}, state, { msg: 'Please, try again', style: 'danger' });
+      return _extends({}, state, { msg: 'Please, try again', style: 'danger', validation: 'error' });
       break;
     case "RESET_BUTTON":
-      return _extends({}, state, { msg: null, style: 'primary' });
+      return _extends({}, state, { msg: null, style: 'primary', validation: null });
       break;
     case "DELETE_BOOK":
       var currentBooksToDelete = [].concat(_toConsumableArray(state.books)); // make a copy of the current list
@@ -39609,9 +39613,56 @@ var Booklist = function (_Component) {
             price: booksArr.price })
         );
       });
+
       return _react2.default.createElement(
         _reactBootstrap.Grid,
         null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Carousel,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Carousel.Item,
+              null,
+              _react2.default.createElement('img', { width: 900, height: 300, alt: '900x300', src: '/images/top1.jpg' }),
+              _react2.default.createElement(
+                _reactBootstrap.Carousel.Caption,
+                null,
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  'First slide label'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Carousel.Item,
+              null,
+              _react2.default.createElement('img', { width: 900, height: 300, alt: '900x300', src: '/images/top2.jpg' }),
+              _react2.default.createElement(
+                _reactBootstrap.Carousel.Caption,
+                null,
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  'Second slide label'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                )
+              )
+            )
+          )
+        ),
         _react2.default.createElement(
           _reactBootstrap.Row,
           null,
@@ -39619,7 +39670,7 @@ var Booklist = function (_Component) {
         ),
         _react2.default.createElement(
           _reactBootstrap.Row,
-          null,
+          { style: { marginTop: '15px' } },
           booksList
         )
       );
