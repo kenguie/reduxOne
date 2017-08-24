@@ -50641,6 +50641,10 @@ var _footer2 = _interopRequireDefault(_footer);
 
 var _reactRedux = __webpack_require__(49);
 
+var _redux = __webpack_require__(42);
+
+var _cartActions = __webpack_require__(122);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50659,6 +50663,11 @@ var Main = function (_Component) {
   }
 
   _createClass(Main, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.getCart();
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -50680,7 +50689,13 @@ function mapStateToProps(state) {
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Main);
+function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({
+    getCart: _cartActions.getCart
+  }, dispatch);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Main);
 
 /***/ }),
 /* 570 */
