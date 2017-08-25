@@ -12,11 +12,9 @@
 </head>
 
 <body>
-    <div id="app">
-        <%- myHtml -%>
-        
-        <script src="bundle.js"></script>
-    </div>
+    <div id="app"><%- reactComponent -%></div>
+    <script>window.INITIAL_STATE=<%- initialState -%></script>        
+    <script src="bundle.js"></script>
 </body>
 
 </html>
